@@ -1,0 +1,13 @@
+# Differences between Lexical and Semantic Search regarding relevancy
+
+When it comes to searching for information in a large corpus of text, there are two main approaches that search engines use: keyword or lexical search and vector semantic similarity search. While both methods aim to retrieve relevant documents, they use different techniques to do so.
+
+Keyword or lexical search relies on matching exact words or phrases that appear in a query with those in the documents. This approach is relatively simple and fast, but it has limitations. For example, it may not be able to handle misspellings, synonyms, or polysemy (when a word has multiple meanings). In addition, it does not take into account the context or meaning of the words, which can lead to irrelevant results.
+
+On the other hand, vector semantic similarity search uses natural language processing (NLP) techniques to analyze the meaning of words and their relationships. It represents words as vectors in a high-dimensional space, where the distance between vectors indicates their semantic similarity. This approach can handle misspellings, synonyms, and polysemy, and it can also capture more subtle relationships between words, such as antonyms, hypernyms, and meronyms. As a result, it can produce more accurate and relevant results.
+
+However, there is a caveat to using vector semantic similarity search. It requires a large amount of data to train the NLP models, which can be computationally expensive and time-consuming. As a result, it may not be as effective for short documents or queries that do not contain enough context to determine the meaning of the words. In such cases, a simple keyword or lexical search may be more suitable and effective.
+
+In fact, in some cases, a short document may actually show higher in a vector space for a given query, even if it is not as relevant as a longer document. This is because short documents typically have fewer words, which means that their word vectors are more likely to be closer to the query vector in the high-dimensional space. As a result, they may have a higher cosine similarity score than longer documents, even if they do not contain as much information or context. This phenomenon is known as the "curse of dimensionality" and it can affect the performance of vector semantic similarity search in certain scenarios.
+
+In conclusion, both keyword or lexical search and vector semantic similarity search have their strengths and weaknesses. Depending on the nature of the corpus, the type of queries, and the computational resources available, one approach may be more appropriate than the other. It is important to understand the differences between the two methods and use them judiciously to achieve the best results.
