@@ -82,3 +82,94 @@ Stell dir die Hierarchie bei Pinecone so vor (von oben nach unten):
 
 </details>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br><br>
+________
+________
+<br><br>
+
+# API
+
+<details><summary>Click to expand..</summary>
+
+<br><br>
+
+# listIndexes
+- This operation returns a list of all indexes in a project.
+- https://docs.pinecone.io/reference/api/2024-07/control-plane/list_indexes
+
+<details><summary>Click to expand..</summary>
+
+Example:
+```
+// npm install @pinecone-database/pinecone
+import { Pinecone } from '@pinecone-database/pinecone'
+
+const pc = new Pinecone({ apiKey: 'YOUR_API_KEY' })
+
+await pc.listIndexes();
+```
+
+Response:
+```
+{
+  "indexes": [
+    {
+      "dimension": 384,
+      "host": "semantic-search-c01b5b5.svc.us-west1-gcp.pinecone.io",
+      "metric": "cosine",
+      "name": "semantic-search",
+      "spec": {
+        "pod": {
+          "environment": "us-west1-gcp",
+          "pod_type": "p1.x1",
+          "pods": 4,
+          "replicas": 2,
+          "shards": 2
+        }
+      },
+      "status": {
+        "ready": true,
+        "state": "Ready"
+      }
+    },
+    {
+      "dimension": 200,
+      "host": "image-search-a31f9c1.svc.us-east1-gcp.pinecone.io",
+      "metric": "dotproduct",
+      "name": "image-search",
+      "spec": {
+        "serverless": {
+          "cloud": "aws",
+          "region": "us-east-1"
+        }
+      },
+      "status": {
+        "ready": false,
+        "state": "Initializing"
+      }
+    }
+  ]
+}
+```
+
+</details>
+
+</details>
+
+
