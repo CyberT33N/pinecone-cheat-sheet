@@ -93,6 +93,133 @@ Stell dir die Hierarchie bei Pinecone so vor (von oben nach unten):
 
 
 
+<br><br>
+________
+________
+<br><br>
+
+# Namespace
+
+
+<details><summary>Click to expand..</summary>
+
+## Check if Namespace exists
+
+
+<details><summary>Click to expand..</summary>
+
+
+### Methode 1: Index-Statistiken abrufen (empfohlen)
+
+Sie können die Methode `describeIndexStats()` verwenden, um Statistiken über den Inhalt Ihres Index zu erhalten. Die Antwort enthält ein `namespaces`-Objekt, das alle Namespaces auflistet, die Vektoren enthalten, sowie deren Anzahl.
+
+Hier ist ein Beispiel, wie Sie dies in Node.js implementieren können:
+
+```javascript
+import { Pinecone } from '@pinecone-database/pinecone';
+
+// Initialisieren Sie den Pinecone-Client
+const pc = new Pinecone({
+  apiKey: 'YOUR_API_KEY',
+});
+
+// Geben Sie Ihren Index an
+const index = pc.index('your-index-name');
+
+async function checkNamespace(namespaceName) {
+  try {
+    const stats = await index.describeIndexStats();
+    
+    if (stats.namespaces && stats.namespaces[namespaceName]) {
+      console.log(`Namespace '${namespaceName}' existiert und enthält ${stats.namespaces[namespaceName].recordCount} Datensätze.`);
+      return true;
+    } else {
+      console.log(`Namespace '${namespaceName}' existiert nicht oder ist leer.`);
+      return false;
+    }
+  } catch (error) {
+    console.error("Fehler beim Abrufen der Index-Statistiken:", error);
+    return false;
+  }
+}
+
+// Rufen Sie die Funktion mit dem Namespace auf, den Sie überprüfen möchten
+checkNamespace('example-namespace');
+```
+
+**Beispielantwort von `describeIndexStats()`:**
+Die Antwort, die Sie von `describeIndexStats()` erhalten, sieht wie folgt aus:
+```json
+{
+  "namespaces": {
+    "example-namespace": { "recordCount": 2000 },
+    "another-namespace": { "recordCount": 4010 }
+  },
+  "dimension": 1536,
+  "indexFullness": 0,
+  "totalRecordCount": 6010
+}
+```
+Indem Sie prüfen, ob Ihr Namespace-Name ein Schlüssel im `namespaces`-Objekt ist, können Sie seine Existenz bestätigen.
+
+*(Quelle: [Node.js SDK Documentation - Seeing index statistics](https://docs.pinecone.io/reference/node-sdk#seeing-index-statistics))*
+
+### Methode 2: Alle Namespaces in einem Index auflisten
+
+Eine noch direktere Methode ist die Verwendung von `listNamespaces()`. Diese Methode gibt eine Liste aller Namespaces in einem Index zurück.
+
+```javascript
+import { Pinecone } from '@pinecone-database/pinecone';
+
+// Initialisieren Sie den Pinecone-Client
+const pc = new Pinecone({
+  apiKey: 'YOUR_API_KEY',
+});
+
+// Geben Sie Ihren Index an
+const index = pc.index('your-index-name');
+
+async function checkNamespace(namespaceName) {
+    try {
+        const namespaceList = await index.listNamespaces();
+        const exists = namespaceList.namespaces.some(ns => ns.name === namespaceName);
+
+        if (exists) {
+            console.log(`Namespace '${namespaceName}' existiert.`);
+        } else {
+            console.log(`Namespace '${namespaceName}' existiert nicht.`);
+        }
+        return exists;
+    } catch (error) {
+        console.error("Fehler beim Auflisten der Namespaces:", error);
+        return false;
+    }
+}
+
+// Rufen Sie die Funktion auf
+checkNamespace('example-namespace');
+```
+
+*(Quelle: [Node.js SDK Documentation - Managing namespaces](https://docs.pinecone.io/reference/node-sdk#managing-namespaces))*
+
+
+
+</details>
+
+
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
